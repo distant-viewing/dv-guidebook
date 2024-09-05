@@ -1,0 +1,595 @@
+# DVD Tutorial: Introduction
+
+For this tutorial, we will be working through treating DVDs as data.
+This approach will allow you to study the entirety of a television
+series (say, the entire run of one of your favorite television shows, or
+maybe multiple television shows with several seasons each), as well as
+large collections of films.
+
+By the end of this tutorial, you will be able to:
+
+-   Understand and apply distant viewing to visual media
+
+-   Create a new dataset of visual media from DVDs
+
+-   Conduct a computer vision-aided study of visual style in film or
+    television
+
+-   Identify patterns using distant viewing
+
+-   Select quantitatively significant trends between corpora
+
+-   Investigate the cause, importance, and effects of visual data trends
+
+This tutorial introduces the application of distant viewing to a
+specific form of visual corpora: DVDs. This tutorial focuses on DVDs for
+their ease of access and capacity for holding large volumes of visual
+data.
+
+## DVD Tutorial: DVDs as Data
+
+Digital Video Discs/Digital Versatile Discs (DVD) are both a prominent
+form of visual media and a prevalent source of data. DVDs are a mass
+production medium seen as a successor to the compact disc (CD) due to a
+higher storage capacity (about 4.7 GB on the average DVD to CDs
+containing about 700 MB). Further, DVDs can store any kind of digital
+data. They were used commonly from 1996 to the early 2010s for the
+circulation of television, film, and other visual media. DVDs have been
+succeeded slowly by Blu-Rays since the late 2000s due to the newer
+medium's even higher storage capacity and higher resolution video files.
+Yet, DVDs are still commonly used as of the early 2020s, particularly
+with DVD box sets for entire television series and single films or film
+collections in collected DVD cases.
+
+The challenge to distant viewing, then, is that we need to get the
+digital file from the physical DVD with specific kinds of formatting
+protections to a computer. Further complicating this is that the digital
+file needs to be in certain formats, such as .mp4, in order to be
+amenable to distant viewing. Overcoming this challenge requires a
+conversion process of ripping data from DVDs, converting that data into
+a format we can work with, and then actually loading that now-usable
+data into the Distant Viewing Toolkit.
+
+## DVD Tutorial: Preparation
+
+### DVD Tutorial Preparation: Suggested Prior Skills
+
+For the first stage of the tutorial, the DVD Ripping, no programming
+experience is needed. That said, you will need access to a DVD drive for
+ripping DVD data (more on this in the following section).
+
+This tutorial operates under the assumption that you have at least one
+collection of DVDs from a singular television show, preferably a
+complete series. If you have more, so much the better! Much of this
+tutorial can also be applied to films and DVDs with singular video files
+included.
+
+We focus here on DVDs over Blu-Rays or other video file formats due to
+the preponderance of DVDs and as Blu-Rays require different kinds of
+encoding and decoding.
+
+For the second stage of the tutorial, familiarity with the theoretical
+framework and rationale of [[distant
+viewing]{.underline}](https://www.distantviewing.org/) will be important
+for working through this tutorial. We specifically suggest reading the
+following published case study on how distant viewing has previously
+been applied to [[two North American network-era television
+sitcoms]{.underline}](https://statsmaths.github.io/pdf/2019-visual-style.pdf).
+
+Additionally for the second stage, we assume familiarity with some data
+analysis-oriented programming languages, particularly Python and R. If
+you are unfamiliar with applying such skillsets to visual media, we
+recommend the tutorial on [[R Basics with Tabular
+Data]{.underline}](https://programminghistorian.org/en/lessons/r-basics-with-tabular-data)
+and the [[Computer Vision For The
+Humanities]{.underline}](https://programminghistorian.org/en/lessons/computer-vision-deep-learning-pt1)
+training modules.
+
+### DVD Tutorial Preparation: Installation and Setup
+
+To begin, you will need two primary elements: DVD ripping hardware in
+the form of a DVD-RW drive for interacting with the physical DVD, and
+software to convert video files housed on the physical DVD. These are
+slightly unique elements related to **ripping DVDs**, a process of
+extracting data from a CD, DVD, or other physical media.
+
+### DVD Tutorial Preparation: DVD Ripping Hardware
+
+![](media/image5.png){width="6.5in" height="3.6666666666666665in"}
+
+Figure xx: An image of an internal DVD drive. Note the "RW" designator
+on the casing itself, able to read "ReWriteable" discs. External DVD
+drives are often slimmer and connected by USB or similar cables.
+
+Not all DVD drives are capable of ripping DVDs; most are capable of
+playing DVDs, but what we need for this tutorial is a **DVD-RW** (or,
+ReWriteable) drive. Therefore, if your primary computer does have an
+internal DVD drive, you will need to look up the model or the type to
+ensure it can rip DVDs.
+
+If you do not have a DVD drive, you can purchase an external DVD drive
+to plug into a computer. These are typically powered by a simple USB
+plug or similarly common connector cord.
+
+DVD drives can be purchased online with different price points depending
+on how fast you want to rip DVDs at, and whether you want to rip more
+expensive or higher-quality media (such as Blu-Rays and 4K Ultra High
+Definition discs). While we strongly recommend doing your own research
+and examining what works best within your budget for your intended
+project, this review article has a solid overview of options:
+[[https://www.reviewgeek.com/31428/everything-you-need-to-play-rip-or-write-blu-rays-and-dvds/]{.underline}](https://www.reviewgeek.com/31428/everything-you-need-to-play-rip-or-write-blu-rays-and-dvds/)
+
+### DVD Tutorial Preparation: DVD Ripping Software
+
+Our primary DVD ripping and encoding program will be
+[[HandBrake]{.underline}](https://handbrake.fr/), which is an open
+source and free video transcoder available on multiple platforms. You
+will need to install HandBrake before proceeding to the next stage of
+this tutorial.
+
+![](media/image3.png){width="6.5in" height="4.416666666666667in"}
+
+Figure xx: An image of the HandBrake user interface and home screen.
+HandBrake is a popular visual media encoder that is popularly used for
+ripping and compressing data from DVDs and other physical visual media.
+
+HandBrake has several [[download
+options]{.underline}](https://handbrake.fr/downloads.php) and extensive
+[[documentation]{.underline}](https://handbrake.fr/docs/), which can be
+found at: [[https://handbrake.fr/]{.underline}](https://handbrake.fr/).
+From their documentation, "HandBrake takes videos you already have and
+makes new ones that work on your mobile phone, tablet, TV media player,
+game console, computer, or web browser---nearly anything that supports
+modern video formats." We recommend HandBrake due to its open-source
+nature; its extensive capabilities; its vibrant and active community;
+and its ubiquity across different platforms.
+
+## DVD Tutorial Preparation: DVD Dataset Preparation
+
+In order to use HandBrake for copyright-protected DVDs, some operating
+systems may need a separate plugin that will help decrypt these
+protections. Without such plugins or external files paired with programs
+like Handbrake, your ripped files will turn out fragmented, pixelated,
+and distorted: copyright measures in action.
+
+For instance, Windows needs a file called "libdvdcss-2.dll" installed
+into the Handbrake Installation folder. In the United States, DVDs are
+able to be ripped for academic purposes. Before proceeding further,
+please check up on the copyright laws in your location, and if
+necessary, reach out to specialists with knowledge in this area. [**To
+comply with US copyright laws, we have undertaken the following measures
+with our own sample dataset:**]{.mark}
+
+-   
+
+Keep all of your DVDs physically organized and clearly labeled. Keep or
+compile a list of what episodes are on each disc, and keep a list of how
+many episodes are in each season/series.
+
+Have your naming convention set before you begin ripping. This is key
+for saving time now and later, as well as for organizational purposes
+when you have moved to the research and analysis stages.
+
+![](media/image1.png){width="3.96875in" height="0.65625in"}
+
+Figure xx: Visual example of our recommended naming convention in
+Handbrake.
+
+If working with a series, we recommend a format similar to this:
+
+-   seriestitle_s##\_e##.mp4
+
+-   ex: freshprince_01_e01.mp4
+
+If working with a single film or movie, we recommend something like:
+
+-   movietitle_releaseyear.mp4
+
+-   frankenstein_1931.mp4
+
+This format serves several functions:
+
+-   Clear organization for you and fellow researchers (present and
+    future)
+
+-   Streamlined naming process for batch ripping
+
+-   Appending the .mp4 file extension in the name ensures the file
+    format will be read correctly on export
+
+HandBrake offers options for [[automatic file
+naming]{.underline}](https://handbrake.fr/docs/en/1.0.0/technical/automatic-file-naming.html).
+However, we recommend manually setting the file names in the following
+"Ripping DVDs with HandBrake" section for quality control purposes.
+
+## DVD Tutorial Preparation: Sample Dataset 
+
+Taylor Arnold and Lauren Tilton previously published a case study of two
+such North American television series, so we will be referring to those
+as examples for the purposes of this study. These are *I Dream of
+Jeannie* (1965-1970) and *Bewitched* (1964-1972). We also will refer to
+a singular New Hollywood-era film in the dataset, *Taxi Driver* (1976),
+directed by Martin Scorsese.
+
+Distant viewing allows you to study not just every scene from a single
+television show at the same time, but every frame of every scene of
+every episode. It also allows for cross-corpora comparisons and
+analysis: seasons one and two of *I Dream of Jeannie* alongside seasons
+three, four, and five from *Bewitched*, or as another example, each of
+the holiday episodes from each series.
+
+## DVD Tutorial: Ripping DVDs with HandBrake
+
+![](media/image4.png){width="6.5in" height="5.791666666666667in"}
+
+Figure xx: The Handbrake user interface. Highlighted are three key areas
+to be used frequently in this tutorial: Open Source for loading video
+sources (DVDs); Preset for video format presets; and Subtitle for
+selecting caption options.
+
+The overall sequence for Handbrake will follow this loop:
+
+-   Set up your data (DVD)
+
+-   Load DVD and select it as your source
+
+-   Choose the first video file
+
+-   Choose the associated subtitle file
+
+-   Name it
+
+-   Add it to Queue
+
+-   Rip the Queue
+
+-   Load the next DVD and repeat
+
+HandBrake is a powerful and robust software tool, so the rest of this
+tutorial section will walk you through choosing the right selections for
+your project.
+
+## DVD Tutorial: HandBrake, Format Preset
+
+HandBrake has many video formatting options and capabilities. Each
+format option may be more or less suited for your individual video file
+and for your dataset.
+
+We recommend Fast 1080p30. This is a [[standard preset for
+HandBrake]{.underline}](https://handbrake.fr/docs/en/1.0.0/technical/official-presets.html)
+and is well-suited for a variety of DVDs due to its speed of ripping
+(Fast) and its video quality (1080p, 30fps), but this will be determined
+somewhat by your computer's processing capabilities and your physical
+DVD drive's capabilities. You can always set up specific DVD ripping
+format presets for each project or as needed.
+
+This preset allows for the burning of video quality \*up to\* 1080p and
+30 frames per second. Most DVDs, however, will be ripped at a lower
+resolution of 720p due to the hard limitations of the physical
+technology of the DVD itself. This means that the video files, while
+being ripped with a Handbrake preset of 1080p, will actually be
+formatted to a 720x480 pixel resolution, by and large.
+
+Blu-Ray discs are capable of holding much higher-quality video files,
+and therefore, can be ripped at much higher quality; this will end up
+taking more time should a higher resolution or preset be selected.
+However, as is noted in the HandBrake program documentation, Blu-Rays
+are primarily unable to be collected with HandBrake due to their unique
+encoding traits as of 2023. **[Other programs such as
+EaseFabLossLessCopy and MakeMKV can be used to collect Blu-Rays, which
+will be covered \[\[later in a separate tutorial\]\].]{.underline}**
+
+Likewise, there are more advanced and nuanced visual quality options
+within Handbrake; for our purposes, we primarily recommend the 1080p,
+30fps Fast option due to its default setting and as it will be able to
+accommodate the vast majority of DVD sets, both for classic visual media
+and contemporary visual media.
+
+We recommend experimenting with these presets, and creating your own
+preset that suits your project's needs with respect to visual data
+collection, caption collection, and naming conventions. This process
+ensures standardization of your DVD ripping practices along with
+
+## DVD Tutorial: HandBrake, Pre-Rip
+
+This first stage involves loading the DVD into HandBrake itself.
+
+1.  Open Handbrake
+
+2.  Load the first DVD into your DVD drive.
+
+3.  Select "Source"
+
+4.  Select the DVD to be ripped.
+
+Once you have selected your source, HandBrake will load in all of the
+video and textual files it can detect from the DVD itself. These files
+will be temporarily hosted within HandBrake; note that nothing has been
+ripped yet.
+
+Before proceeding to the Ripping stage, compare the content of the DVD
+and its organization with a trusted source of film/television
+metadata/information. First, make sure that the DVD's contents are as
+advertised in the case. Secondly, for television shows or DVDs with
+multiple films or larger files on them, ensure that the episodes are in
+release order. We particularly recommend IMDB as a cross-referencing
+tool. We highlight this crucial stage as most, but not all, DVDs work to
+present television shows in something akin to chronological order.
+
+If your DVD is ordered correctly or organized as expected, proceed to
+the "Handbrake, Ripping" section below. If your DVD is organized
+incorrectly, or to learn more about why DVD organization and user
+verification is so crucial, please continue on.
+
+## DVD Tutorial: HandBrake, Pre-Rip
+
+![](media/image6.png){width="6.5in" height="1.8055555555555556in"}
+
+Figure xx: A comparison of Handbrake reading the *Sanford and Son* DVD
+box set, the episodes housed on *Sanford and Son* Season 6 Disc 1, and
+the chronological release order of *Sanford and Son* Season 6 taken from
+IMDB.com. Note the differences particularly between episodes 1 and 2
+each of the DVD and IMDB, and how this affects file naming.
+
+Not all DVDs are constructed in the same way: for instance, the complete
+box set of *Sanford and Son* (1972-1977) features 136 episodes across 17
+discs, so it contains every episode from the show. However,
+[[consumers]{.underline}](https://www.amazon.com/gp/customer-reviews/R2VUIRHI315HT4/ref=cm_cr_dp_d_rvw_ttl?ie=UTF8&ASIN=B001DSNEME)
+have noted that these episodes are presented in the box set out of
+release order, in every season's DVDs. Because this television show is
+included in our dataset, we verified this issue.
+
+Figure xx helps visualize this issue and its import. If one were to rip
+the *Sanford and Son* DVDs as-is, then our files would be ordered
+incorrectly: pulling from Disc 1 of Season 6, our first file labeled as
+season 6, episode 1 (s06_e01) is chronologically season 6, episode 9,
+titled "Fred\'s Extra Job," wherein Fred Sanford gets an additional job
+working as a bus boy to pay back a bank loan. Likewise, the second file
+on the disc, what might be labeled be season 6, episode 2 (s06_e02)
+without cross-referencing, is actually season 6, episode 6: "I Dream of
+Choo Choo Rabinowitz." [[Amazon user
+DTCG]{.underline}](https://www.amazon.com/gp/customer-reviews/R6GNEP7OHHI7K/ref=cm_cr_getr_d_rvw_ttl?ie=UTF8&ASIN=B001DSNEME)
+has a more thorough accounting of the misordered episodes in this DVD
+box set, with a few highlights presented here:
+
+> [Season 1 is in order.]{.mark}
+>
+> [Season 2 starts with Episode 14]{.mark}
+>
+> [Season 3 starts with Episode 6]{.mark}
+>
+> [Season 4 Starts with Episode 11 and episode 24 is actually on Disc 1
+> of Season 5]{.mark}
+>
+> [Season 5\.... they managed to get the correct episodes and order, but
+> Episode 24 of Season 4 is on Disc 1]{.mark}
+>
+> [Season 6 is Close\... but no cigar (2018)]{.mark}
+
+This distinction might feel small, pedantic even, when considering the
+study of entire television shows all at once. But, treating these DVDs
+as data requires keeping our data tidy, organized, and ordered, because
+the alternative is incorrect data. To return to our recent example, of
+*Sanford and Son* file s06_01 actually being season 6, episode 9: if we
+noticed something unique visually about this episode, and wrote about it
+or taught this episode, the findings would be suspect, faulty even. We
+would be calling attention to findings in a mid-season episode, when
+others might be thinking our findings are related to the *actual* season
+6 opener, a three-part episode where both Fred and Lamont Sanford go to
+Hawaii. Moreover, this incorrect ordering can cause a cascading effect
+on the rest of our DVD data: if one episode is out of order, then at
+least one other episode is out of order, and more than likely, multiple
+episodes are incorrectly organized. For instance: Figure xx shows that
+the season 6 openers are, likewise, incorrectly ordered on the DVD as
+episodes 3 and 4 of Season 6. Not only do we have to rectify "Fred's
+Extra Job," "I Dream of Choo Choo Rabinowitz," and the three-part
+"Hawaii" episodes, but we also have to rectify the episodes that each of
+those were taking the place of, and so on.
+
+These issues can be fixed after the Ripping stage is complete. All that
+would be needed is a simple renaming and reorganizing of files. But, as
+with our earlier stages of data collection, being diligent throughout
+the entire process saves headaches now and in the future, for yourself
+and for collaborators, as well as for potential users of your dataset,
+should you wish to turn it public or share it with others.
+
+When you have a handle on how your DVD is organized and are ready,
+proceed to the "Handbrake, Ripping" section.
+
+## DVD Tutorial: Handbrake, Ripping
+
+Each DVD consists of several video files, each of varying sizes and
+lengths. It will be up to you to determine which video files are worth
+ripping for this project, and which are not.
+
+Many DVDs will have small, two-to-thirty second video files that pertain
+to the DVD menus. These can be filtered out as needed in HandBrake:
+Tools \> Preferences \> Advanced \> Advanced Options \> "Minimum DVD and
+Blu-Ray title duration in sections."
+
+For television DVDs, each episode will be contained in its own video
+file. For movie DVDs, there should be one large file consisting of the
+actual movie itself. Many DVDs will typically have a "Play All" file,
+which is roughly the same size as the rest of the files combined, in
+addition to individual episode files. Occasionally, HandBrake will
+detect multiple video files for the same television episode: this may be
+due to director's cuts, to commentary episodes, or simply to one having
+a scene that was removed/added after the fact.
+
+![](media/image2.png){width="3.2916666666666665in"
+height="2.1666666666666665in"}
+
+\[\[Figure xx: Handbrake is adept at finding all video files within a
+DVD disc, including small files primarily used for DVD menus and large
+"Play All" video files. Highlighted is one of the movies on a DVD that
+we would want, with the other two being the files over one hour
+long.\]\]
+
+We recommend the following choices in choosing video files from each
+DVD:
+
+-   Ignore the much larger "Play All" video file.
+
+-   Ignore or filter out the much smaller two-to-thirty second video
+    files.
+
+-   Choose the file with more "chapter breaks" when faced with two video
+    files for the same episode.
+
+-   Review the video file after ripping to confirm that your choices
+    were correct, and that this particular video file will work for your
+    data analysis.
+
+    -   Particularly review it using the "Pre-Rip" tutorial.
+
+Once you have chosen your first video file to rip:
+
+-   Go to "Subtitles," select the file you want, and add that Subtitle
+    track (if present).
+
+-   Choose between Default, Burn In, and Foreign Scan presentation
+    options
+
+    -   We recommend selecting Default, or simply adding in the track
+        and leaving all options off.
+
+    -   This will ensure that the captions are not automatically burned
+        in to your video file itself, which may disrupt or negatively
+        impact your visual analysis.
+
+-   Copy/paste your naming convention in. This allows you to quickly
+    modify the episode title.
+
+    -   C:\\Users\\XXXX\\Videos\\DVD NAME IN IMPROPER NAMING CONVENTION
+
+    -   C:\\Users\\XXXX\\Videos\\ seriestitle_s##\_e##.mp4
+
+    -   While naming conventions can be selected manually through
+        HandBrake's preferences tab, we strongly recommend copying and
+        pasting your naming convention in. This will allow maximum
+        quality control.
+
+-   Select "Add to Queue"
+
+-   Repeat the process for the additional video files you will be
+    ripping from this DVD.
+
+-   Select the Queue preview to actually see the settings for each file
+    once all of your chosen video files are added to the Queue.
+
+-   Review each file to ensure that the options are expected; treat this
+    as a quality control step.
+
+-   Click the "Encode" button. Your computer will begin ripping the DVD
+    files to your specified location.
+
+When you have completely ripped your first DVD, repeat these steps
+through the rest of the DVDs in this selection. When all of the DVDs in
+this group are complete, we recommend moving them to a separate,
+self-contained folder with the same naming conventions that you
+previously used.
+
+## DVD Tutorial: DV, Resolution, and PAR/SAR/DAR
+
+Users working with the Python package of the Distant Viewing Toolkit may
+discover that the DVD video files' resolution does not match the still
+images generated with ffprobe. DVDs are always in either NTSC or PAL
+format. NTSC format is most common in the U.S., South America, and in
+Japan, primarily corresponding to a resolution of 720x480. PAL format is
+most common in Europe, Asia, Oceania, Africa, and some parts of South
+America. Many DVDs are capable of playing at slightly different aspect
+ratios (say, 1.5 for Standard Definition compared to High Definition at
+16/9 or 1.7778).
+
+This is due to a combination of three elements that are often overlooked
+or not immediately apparent when watching video files normally: Pixel
+Aspect Ratio (PAR), Sampled Aspect Ratio (SAR), and Display Aspect Ratio
+(DAR).
+
+The first is what is fixed by the video file's format (it's around
+720x480 for most common DVDs). The third can be specified in the file to
+indicate that the image needs to be stretched when played. The SAR is
+just the ratio between the two. The video files for one popular sitcom,
+*Parks and Recreation* for instance*,* have a PAR of 720x479, a SAR of
+32:27, and a DAR of 1280:717.
+
+[Playing a file on a common media player like VLC automatically
+stretches the image to match the DAR, but the data quality is fixed by
+the PAR. But, most computer libraries (including the OpenCV, a common
+open source computer library) read the digital images according to the
+PAR and are therefore incorrectly stretching the image, or the frame
+being pulled: instead of reading the digital images at 720x480, the
+frame might be read at 857x431, a significant distortion. This matters
+for data stability and analysis: if the aspects and resolution are not
+fixed in all points of study, then both the algorithms' scanning of the
+moving images and the human interpretations/analyses will be
+incorrect.]{.mark}
+
+### HandBrake Solution
+
+[However, there is one solution in Handbrake: in the "Dimensions" tab,
+users can change the Pixel Aspect ratio, along with the Scaled Size, and
+can even allow for Upscaling a video file artificially. HandBrake
+defaults to, well, the video file's default or automatic resolution
+settings, including its Pixel Aspect Ratio. This will most likely be
+close to, but not quite, 1:1 due to the DVD's formatting as above. You
+can modify it here to a custom setting either by changing the Anamorphic
+setting from Automatic to Custom, or, you can deselect "Optimal Size"
+and modify the video file from there.]{.mark}
+
+### ffmpeg solution
+
+[The more technical option is that you can use use]{.mark}
+[[[ffmpeg]{.underline}]{.mark}](https://ffmpeg.org/) [to automatically
+re-sample the video file so that PAR = DAR, with a SAR of 1. This will
+ensure that the aspect ratios stay stable across all points of contact,
+particularly the back-end when using Python. This is our preferred
+method of modifying this.]{.mark}
+
+## DVD Tutorial: Next Steps
+
+In this tutorial, you learned about:
+
+-   A popular moving image collection tool called HandBrake
+
+-   Collecting moving image files from DVDs
+
+-   Organizing moving image files in an orderly, efficient fashion
+
+This tutorial primarily focused on helping you understand DVDs as data,
+making informed decisions about when and how to collect moving image
+files, and how to prepare DVDs as data for your own work.
+
+The practical section of this tutorial will prepare you for:
+
+-   Applying annotators to your moving image files
+
+-   Exploring and analyzing the data that you generate from moving
+    images
+
+## Resources and References: 
+
+[Arnold, Taylor, Lauren Tilton, and Annie Berke. 2019. "Visual Style in
+Two Network Era Sitcoms." *Journal of Cultural Analytics* 4 (2).
+[[https://doi.org/10.22148/16.043]{.underline}](https://doi.org/10.22148/16.043).]{.mark}
+
+Baltz, Aaron. "NTSC vs PAL: What are they and which one do I use?"
+*Corel Discovery Center*. N.d:
+
+[[https://learn.corel.com/ntsc-vs-pal-what-are-they-and-which-to-use/#:\~:text=What%20is%20PAL%20Format%3F,and%20parts%20of%20South%20America]{.underline}](https://learn.corel.com/ntsc-vs-pal-what-are-they-and-which-to-use/#:~:text=What%20is%20PAL%20Format%3F,and%20parts%20of%20South%20America)
+
+Distant Viewing Lab. 2023.:
+[[https://www.distantviewing.org/]{.underline}](https://www.distantviewing.org/)
+
+File Extension guides:
+
+[[https://fileinfo.com/extension/json]{.underline}](https://fileinfo.com/extension/json)
+
+[[https://fileinfo.com/extension/bz2]{.underline}](https://fileinfo.com/extension/bz2)
+
+HandBrake. Last visited March 19, 2024.
+[[https://handbrake.fr/]{.underline}](https://handbrake.fr/)
+
+[Taryn Dewar, \"R Basics with Tabular Data,\" *Programming Historian* 5
+(2016),
+[[https://doi.org/10.46430/phen0056]{.underline}](https://doi.org/10.46430/phen0056).]{.mark}

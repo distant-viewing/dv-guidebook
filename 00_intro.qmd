@@ -1,0 +1,24 @@
+# Introduction {#part-intro .unnumbered}
+
+This is a book created from markdown and executable code.
+
+See @knuth84 for additional discussion of literate programming.
+
+```{r}
+x <- runif(100)
+```
+
+```{python}
+from os import listdir
+from os.path import isfile, join
+x = [f for f in listdir(".") if isfile(join(".", f))]
+```
+
+```{r}
+x
+```
+
+```{python}
+import dvt
+```
+
